@@ -72,13 +72,17 @@ export default function Home() {
               and join a community of passionate storytellers.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Button size="lg" className="gradient-violet-amber text-white px-8 py-3 font-body font-semibold hover:opacity-90 transition-opacity shadow-lg">
-                <BookOpen className="w-5 h-5 mr-2" />
-                Explore Stories
+              <Button size="lg" className="gradient-violet-amber text-white px-8 py-3 font-body font-semibold hover:opacity-90 transition-opacity shadow-lg" asChild>
+                <a href="/genres">
+                  <BookOpen className="w-5 h-5 mr-2" />
+                  Explore Stories
+                </a>
               </Button>
-              <Button size="lg" variant="outline" className="border-2 border-primary text-primary px-8 py-3 font-body font-semibold hover:bg-primary hover:text-white transition-all">
-                <Pen className="w-5 h-5 mr-2" />
-                Start Writing
+              <Button size="lg" variant="outline" className="border-2 border-primary text-primary px-8 py-3 font-body font-semibold hover:bg-primary hover:text-white transition-all" asChild>
+                <a href="/submit">
+                  <Pen className="w-5 h-5 mr-2" />
+                  Start Writing
+                </a>
               </Button>
             </div>
           </div>
@@ -165,9 +169,11 @@ export default function Home() {
           </div>
 
           <div className="text-center mt-12">
-            <Button size="lg" variant="outline" className="font-body font-semibold">
-              <BookOpen className="w-5 h-5 mr-2" />
-              View All Stories
+            <Button size="lg" variant="outline" className="font-body font-semibold" asChild>
+              <a href="/genres">
+                <BookOpen className="w-5 h-5 mr-2" />
+                View All Stories
+              </a>
             </Button>
           </div>
         </div>
