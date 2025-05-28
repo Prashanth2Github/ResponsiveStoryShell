@@ -3,15 +3,19 @@
 @tailwind utilities;
 
 :root {
-  /* Brand Colors */
-  --color-violet: 291 73% 41%; /* #8E24AA */
-  --color-amber: 45 100% 50%; /* #FFB300 */
+  /* Enhanced Brand Colors */
+  --color-violet: 280 85% 55%; /* #A855F7 - More vibrant purple */
+  --color-amber: 43 96% 56%; /* #F59E0B - Rich golden amber */
+  --color-rose: 350 89% 60%; /* #FB7185 - Elegant rose */
+  --color-emerald: 160 84% 39%; /* #10B981 - Fresh emerald */
+  --color-cyan: 190 95% 55%; /* #06B6D4 - Bright cyan */
+  --color-indigo: 239 84% 67%; /* #6366F1 - Deep indigo */
   --color-offwhite: 0 0% 98%; /* #FAFAFA */
   
-  /* Shadcn Color System */
-  --background: 0 0% 98%; /* #FAFAFA */
+  /* Light Theme Colors */
+  --background: 0 0% 100%; /* Pure white background */
   --foreground: 240 10% 3.9%;
-  --muted: 210 40% 96%;
+  --muted: 210 40% 98%;
   --muted-foreground: 215.4 16.3% 46.9%;
   --popover: 0 0% 100%;
   --popover-foreground: 240 10% 3.9%;
@@ -19,38 +23,55 @@
   --card-foreground: 240 10% 3.9%;
   --border: 214.3 31.8% 91.4%;
   --input: 214.3 31.8% 91.4%;
-  --primary: 291 73% 41%; /* Brand Violet */
+  --primary: 280 85% 55%; /* Enhanced Violet */
   --primary-foreground: 0 0% 98%;
-  --secondary: 210 40% 96%;
+  --secondary: 210 40% 98%;
   --secondary-foreground: 222.2 84% 4.9%;
-  --accent: 45 100% 50%; /* Brand Amber */
+  --accent: 43 96% 56%; /* Enhanced Amber */
   --accent-foreground: 240 10% 3.9%;
   --destructive: 0 84.2% 60.2%;
   --destructive-foreground: 0 0% 98%;
-  --ring: 291 73% 41%;
+  --ring: 280 85% 55%;
   --radius: 0.75rem;
+  
+  /* Creative accent colors */
+  --success: 160 84% 39%;
+  --success-foreground: 0 0% 98%;
+  --warning: 43 96% 56%;
+  --warning-foreground: 240 10% 3.9%;
+  --info: 190 95% 55%;
+  --info-foreground: 0 0% 98%;
 }
 
 .dark {
-  --background: 240 10% 3.9%;
-  --foreground: 0 0% 98%;
-  --muted: 240 3.7% 15.9%;
-  --muted-foreground: 240 5% 64.9%;
-  --popover: 240 10% 3.9%;
-  --popover-foreground: 0 0% 98%;
-  --card: 240 10% 3.9%;
-  --card-foreground: 0 0% 98%;
-  --border: 240 3.7% 15.9%;
-  --input: 240 3.7% 15.9%;
-  --primary: 291 73% 41%;
-  --primary-foreground: 0 0% 98%;
-  --secondary: 240 3.7% 15.9%;
-  --secondary-foreground: 0 0% 98%;
-  --accent: 45 100% 50%;
-  --accent-foreground: 240 10% 3.9%;
+  /* Dark Theme Colors */
+  --background: 222.2 84% 4.9%; /* Rich dark background */
+  --foreground: 210 40% 98%;
+  --muted: 217.2 32.6% 17.5%;
+  --muted-foreground: 215 20.2% 65.1%;
+  --popover: 222.2 84% 4.9%;
+  --popover-foreground: 210 40% 98%;
+  --card: 222.2 84% 4.9%;
+  --card-foreground: 210 40% 98%;
+  --border: 217.2 32.6% 17.5%;
+  --input: 217.2 32.6% 17.5%;
+  --primary: 280 85% 60%; /* Brighter violet for dark mode */
+  --primary-foreground: 222.2 84% 4.9%;
+  --secondary: 217.2 32.6% 17.5%;
+  --secondary-foreground: 210 40% 98%;
+  --accent: 43 96% 60%; /* Brighter amber for dark mode */
+  --accent-foreground: 222.2 84% 4.9%;
   --destructive: 0 62.8% 30.6%;
   --destructive-foreground: 0 0% 98%;
-  --ring: 240 4.9% 83.9%;
+  --ring: 280 85% 60%;
+  
+  /* Dark mode accent colors */
+  --success: 160 84% 45%;
+  --success-foreground: 222.2 84% 4.9%;
+  --warning: 43 96% 60%;
+  --warning-foreground: 222.2 84% 4.9%;
+  --info: 190 95% 60%;
+  --info-foreground: 222.2 84% 4.9%;
 }
 
 @layer base {
@@ -85,6 +106,34 @@
   
   .gradient-violet-amber-soft {
     background: linear-gradient(135deg, hsla(var(--color-violet), 0.1) 0%, hsla(var(--color-amber), 0.1) 100%);
+  }
+  
+  .gradient-creative {
+    background: linear-gradient(135deg, 
+      hsl(var(--color-violet)) 0%, 
+      hsl(var(--color-rose)) 25%, 
+      hsl(var(--color-amber)) 50%, 
+      hsl(var(--color-emerald)) 75%, 
+      hsl(var(--color-cyan)) 100%);
+  }
+  
+  .gradient-sunset {
+    background: linear-gradient(135deg, 
+      hsl(var(--color-rose)) 0%, 
+      hsl(var(--color-amber)) 50%, 
+      hsl(var(--color-violet)) 100%);
+  }
+  
+  .gradient-ocean {
+    background: linear-gradient(135deg, 
+      hsl(var(--color-cyan)) 0%, 
+      hsl(var(--color-indigo)) 100%);
+  }
+  
+  .gradient-forest {
+    background: linear-gradient(135deg, 
+      hsl(var(--color-emerald)) 0%, 
+      hsl(var(--color-cyan)) 100%);
   }
   
   .ribbon-accent {
