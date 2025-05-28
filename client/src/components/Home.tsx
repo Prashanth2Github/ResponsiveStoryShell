@@ -210,13 +210,17 @@ export default function Home() {
             storytelling to connect, inspire, and transform.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button size="lg" className="gradient-violet-amber text-white px-8 py-3 font-body font-semibold hover:opacity-90 transition-opacity shadow-lg">
-              <Pen className="w-5 h-5 mr-2" />
-              Publish Your Story
+            <Button size="lg" className="gradient-violet-amber text-white px-8 py-3 font-body font-semibold hover:opacity-90 transition-opacity shadow-lg" asChild>
+              <a href="/submit">
+                <Pen className="w-5 h-5 mr-2" />
+                Publish Your Story
+              </a>
             </Button>
-            <Button size="lg" variant="outline" className="border-2 border-primary text-primary px-8 py-3 font-body font-semibold hover:bg-primary hover:text-white transition-all">
-              <Users className="w-5 h-5 mr-2" />
-              Join Community
+            <Button size="lg" variant="outline" className="border-2 border-primary text-primary px-8 py-3 font-body font-semibold hover:bg-primary hover:text-white transition-all" asChild>
+              <a href="/community">
+                <Users className="w-5 h-5 mr-2" />
+                Join Community
+              </a>
             </Button>
           </div>
         </div>
