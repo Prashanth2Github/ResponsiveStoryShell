@@ -1,0 +1,87 @@
+Build a modern responsive UI shell for a fictional web platform called NewStoriesAndTales.com, based on the brand identity and assessment guidelines below. This is Phase 1 of a tech hiring assessment and must match the visual style and functionality described.
+
+🎯 Objective
+Build the UI Shell module of the platform, which includes:
+
+Responsive Header with:
+
+Site logo (placeholder text or simple SVG)
+
+Navigation links: Home, Genres, Submit
+
+User menu (simple "Login / Profile" placeholder dropdown or button)
+
+Responsive Footer with:
+
+Site name or logo
+
+Placeholder links (e.g., About / Contact)
+
+Social media icon placeholders
+
+🎨 Brand Style Guide: "Modern Storybook"
+Colors (use CSS variables):
+
+css
+Copy
+Edit
+--color-violet: #8E24AA;
+--color-amber: #FFB300;
+--color-offwhite: #FAFAFA;
+Typography:
+
+Headlines: Use Playfair Display
+
+Body Text: Use Merriweather or Source Sans Pro
+
+Mood & Design Motifs:
+
+Purple → Gold gradients
+
+Paper texture background or accents (light and subtle)
+
+Ribbon/bookmark icons (SVG or emojis allowed)
+
+Fade-in animation for story cards (optional)
+
+Decorative drop caps in story sections (mockup okay)
+
+🛠️ Tech Stack
+Use React with Vite and Tailwind CSS.
+
+Set up Tailwind with a custom theme using the brand colors and fonts
+
+Use Tailwind animations for fade-ins
+
+Include mobile-first responsive design
+
+Fonts should be imported via Google Fonts
+
+html
+Copy
+Edit
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Merriweather&family=Source+Sans+Pro&display=swap" rel="stylesheet">
+🧩 Requirements
+Store CSS variables in a global :root block
+
+Create Header.tsx, Footer.tsx, and App.tsx
+
+Use React Router (or minimal routing structure) if needed for links
+
+Include a minimal home layout that respects spacing, color, and typography
+
+Make it visually clean and deployable
+
+🌍 Deployment
+Project should be deployable to Vercel or Netlify
+
+Make sure it's a single-page app that runs without issues
+
+Optimize for public viewing — no auth or database needed
+
+📦 Final Output
+A fully functional responsive UI shell matching the branding and layout
+
+Uses correct typography, colors, and header/footer layout
+
+Ready for submission to the hiring team
