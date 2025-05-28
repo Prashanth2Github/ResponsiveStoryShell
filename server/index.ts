@@ -1,15 +1,19 @@
 import express, { Request, Response, NextFunction } from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import path from "path";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 
 dotenv.config();
 
 const app = express();
+
+// Middleware to parse JSON and URL-encoded bodies
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// Log middleware for API routes
 app.use((req, res, next) => {
   const start = Date.now();
   const path = req.path;
@@ -28,8 +32,8 @@ app.use((req, res, next) => {
       if (capturedJsonResponse) {
         logLine += ` :: ${JSON.stringify(capturedJsonResponse)}`;
       }
-      if (logLine.length > 80) {
-        logLine = logLine.slice(0, 79) + "…";
+      if (logLine.length > 120) {
+        logLine = logLine.slice(0, 119) + "…";
       }
       log(logLine);
     }
@@ -40,31 +44,40 @@ app.use((req, res, next) => {
 
 (async () => {
   try {
+    // Connect to MongoDB
     await mongoose.connect(process.env.MONGODB_URI || "", {
       dbName: "ResponsiveStoryShell",
     });
     console.log("✅ Connected to MongoDB");
 
+    // Register backend routes
     const server = await registerRoutes(app);
 
+    // Global error handler
     app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
       const status = err.status || err.statusCode || 500;
       const message = err.message || "Internal Server Error";
       res.status(status).json({ message });
-      throw err;
+      console.error(err);
     });
 
+    // Serve Vite dev server in development, static files in production
     if (app.get("env") === "development") {
       await setupVite(app, server);
     } else {
-      serveStatic(app);
+      // Serve static files from dist/public in production
+      const distPath = path.join(__dirname, "public");
+      app.use(express.static(distPath));
+      app.get("*", (_req, res) => {
+        res.sendFile(path.join(distPath, "index.html"));
+      });
     }
 
-    const port = 5000;
-    server.listen({ port, host: "localhost" }, () => {
+    // Start server
+    const port = process.env.PORT || 5000;
+    server.listen({ port: +port, host: "0.0.0.0" }, () => {
       log(`✅ Server running at http://localhost:${port}`);
     });
-
   } catch (err) {
     console.error("❌ MongoDB connection failed:", err);
     process.exit(1);
