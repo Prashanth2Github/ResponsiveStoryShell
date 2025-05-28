@@ -61,29 +61,19 @@ export default function Footer() {
             <h4 className="font-body font-bold text-lg mb-4">Quick Links</h4>
             <ul className="space-y-2 font-body">
               <li>
-                <Link href="/about">
-                  <a className="text-gray-300 hover:text-brand-amber transition-colors duration-200">About Us</a>
-                </Link>
+                <Link href="/about" className="text-gray-300 hover:text-brand-amber transition-colors duration-200">About Us</Link>
               </li>
               <li>
-                <Link href="/contact">
-                  <a className="text-gray-300 hover:text-brand-amber transition-colors duration-200">Contact</a>
-                </Link>
+                <Link href="/contact" className="text-gray-300 hover:text-brand-amber transition-colors duration-200">Contact</Link>
               </li>
               <li>
-                <Link href="/guidelines">
-                  <a className="text-gray-300 hover:text-brand-amber transition-colors duration-200">Writing Guidelines</a>
-                </Link>
+                <Link href="/guidelines" className="text-gray-300 hover:text-brand-amber transition-colors duration-200">Writing Guidelines</Link>
               </li>
               <li>
-                <Link href="/faq">
-                  <a className="text-gray-300 hover:text-brand-amber transition-colors duration-200">FAQ</a>
-                </Link>
+                <Link href="/faq" className="text-gray-300 hover:text-brand-amber transition-colors duration-200">FAQ</Link>
               </li>
               <li>
-                <Link href="/support">
-                  <a className="text-gray-300 hover:text-brand-amber transition-colors duration-200">Support</a>
-                </Link>
+                <Link href="/support" className="text-gray-300 hover:text-brand-amber transition-colors duration-200">Support</Link>
               </li>
             </ul>
           </div>
@@ -93,24 +83,16 @@ export default function Footer() {
             <h4 className="font-body font-bold text-lg mb-4">Legal</h4>
             <ul className="space-y-2 font-body">
               <li>
-                <Link href="/privacy">
-                  <a className="text-gray-300 hover:text-brand-amber transition-colors duration-200">Privacy Policy</a>
-                </Link>
+                <Link href="/privacy" className="text-gray-300 hover:text-brand-amber transition-colors duration-200">Privacy Policy</Link>
               </li>
               <li>
-                <Link href="/terms">
-                  <a className="text-gray-300 hover:text-brand-amber transition-colors duration-200">Terms of Service</a>
-                </Link>
+                <Link href="/terms" className="text-gray-300 hover:text-brand-amber transition-colors duration-200">Terms of Service</Link>
               </li>
               <li>
-                <Link href="/copyright">
-                  <a className="text-gray-300 hover:text-brand-amber transition-colors duration-200">Copyright Policy</a>
-                </Link>
+                <Link href="/copyright" className="text-gray-300 hover:text-brand-amber transition-colors duration-200">Copyright Policy</Link>
               </li>
               <li>
-                <Link href="/community">
-                  <a className="text-gray-300 hover:text-brand-amber transition-colors duration-200">Community Guidelines</a>
-                </Link>
+                <Link href="/community" className="text-gray-300 hover:text-brand-amber transition-colors duration-200">Community Guidelines</Link>
               </li>
             </ul>
           </div>
