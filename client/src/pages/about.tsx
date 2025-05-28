@@ -5,25 +5,25 @@ import { BookOpen, Users, Heart, Globe } from "lucide-react";
 
 const teamMembers = [
   {
-    name: "Sarah Johnson",
+    name: "Prashanth Bonkuru",
     role: "Founder & Editor-in-Chief",
     bio: "Former literary magazine editor with 15 years of experience in publishing and storytelling.",
     initials: "SJ"
   },
   {
-    name: "Michael Chen",
+    name: "Iron Man",
     role: "Community Manager",
     bio: "Passionate about connecting writers and fostering creative communities worldwide.",
     initials: "MC"
   },
   {
-    name: "Elena Rodriguez",
+    name: "Batman",
     role: "Content Curator",
     bio: "Award-winning author and writing mentor dedicated to discovering new voices.",
     initials: "ER"
   },
   {
-    name: "David Park",
+    name: "Jarvis",
     role: "Technical Director",
     bio: "Technology enthusiast building platforms that empower creative expression.",
     initials: "DP"

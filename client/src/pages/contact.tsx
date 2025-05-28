@@ -225,8 +225,13 @@ export default function Contact() {
                   <Phone className="w-5 h-5 text-primary mt-1" />
                   <div>
                     <h4 className="font-body font-semibold text-gray-900">Phone</h4>
-                    <p className="text-gray-600">+1 (555) 123-4567</p>
-                    <p className="text-gray-500 text-sm">Monday - Friday, 9AM - 6PM EST</p>
+                    <p className="text-gray-600">
+                    <a href="tel:+919581758451" className="text-blue-600 hover:underline">
+                      +91 9581758451
+                    </a>
+                    </p>
+
+                    <p className="text-gray-500 text-sm">Monday - Friday, 9AM - 6PM IST</p>
                   </div>
                 </div>
 
@@ -235,9 +240,9 @@ export default function Contact() {
                   <div>
                     <h4 className="font-body font-semibold text-gray-900">Address</h4>
                     <p className="text-gray-600">
-                      123 Literary Lane<br />
-                      Story District<br />
-                      New York, NY 10001
+                      Mehdipatnam<br />
+                      Hyderabad<br />
+                      India, Telangana 500028
                     </p>
                   </div>
                 </div>

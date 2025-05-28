@@ -1,108 +1,143 @@
-import { users, stories, type User, type InsertUser, type Story, type InsertStory } from "@shared/schema";
-import { db } from "./db";
-import { eq, desc } from "drizzle-orm";
 import bcrypt from "bcryptjs";
+import mongoose from "mongoose";
 
-export interface IStorage {
-  // User operations
-  getUser(id: number): Promise<User | undefined>;
-  getUserByUsername(username: string): Promise<User | undefined>;
-  getUserByEmail(email: string): Promise<User | undefined>;
-  createUser(user: InsertUser): Promise<User>;
-  updateUser(id: number, updates: Partial<User>): Promise<User | undefined>;
-  verifyPassword(email: string, password: string): Promise<User | null>;
-  
-  // Story operations
-  getStories(): Promise<Story[]>;
-  getStoriesByAuthor(authorId: number): Promise<Story[]>;
-  getStory(id: number): Promise<Story | undefined>;
-  createStory(story: InsertStory & { authorId: number }): Promise<Story>;
-  updateStory(id: number, updates: Partial<Story>): Promise<Story | undefined>;
-  deleteStory(id: number): Promise<boolean>;
+// Define your User schema & model (example)
+const userSchema = new mongoose.Schema({
+  username: { type: String, unique: true },
+  email: { type: String, unique: true },
+  password: String,
+  firstName: String,
+  lastName: String,
+});
+
+const User = mongoose.model("User", userSchema);
+
+export interface IUser {
+  id?: string;
+  username: string;
+  email: string;
+  password?: string | null;
+  firstName?: string;
+  lastName?: string;
 }
 
-export class DatabaseStorage implements IStorage {
-  // User operations
-  async getUser(id: number): Promise<User | undefined> {
-    const [user] = await db.select().from(users).where(eq(users.id, id));
-    return user;
-  }
+// Create user with hashed password
+export async function createUser(data: {
+  username: string;
+  email: string;
+  password: string;
+  firstName?: string;
+  lastName?: string;
+}): Promise<IUser> {
+  const hashedPassword = await bcrypt.hash(data.password, 10);
 
-  async getUserByUsername(username: string): Promise<User | undefined> {
-    const [user] = await db.select().from(users).where(eq(users.username, username));
-    return user;
-  }
+  const user = new User({
+    username: data.username,
+    email: data.email,
+    password: hashedPassword,
+    firstName: data.firstName,
+    lastName: data.lastName,
+  });
 
-  async getUserByEmail(email: string): Promise<User | undefined> {
-    const [user] = await db.select().from(users).where(eq(users.email, email));
-    return user;
-  }
+  const savedUser = await user.save();
 
-  async createUser(userData: InsertUser): Promise<User> {
-    const hashedPassword = await bcrypt.hash(userData.password, 12);
-    
-    const [user] = await db
-      .insert(users)
-      .values({
-        ...userData,
-        password: hashedPassword,
-      })
-      .returning();
-    return user;
-  }
-
-  async updateUser(id: number, updates: Partial<User>): Promise<User | undefined> {
-    const [user] = await db
-      .update(users)
-      .set({ ...updates, updatedAt: new Date() })
-      .where(eq(users.id, id))
-      .returning();
-    return user;
-  }
-
-  async verifyPassword(email: string, password: string): Promise<User | null> {
-    const user = await this.getUserByEmail(email);
-    if (!user) return null;
-    
-    const isValid = await bcrypt.compare(password, user.password);
-    return isValid ? user : null;
-  }
-
-  // Story operations
-  async getStories(): Promise<Story[]> {
-    return await db.select().from(stories).orderBy(desc(stories.createdAt));
-  }
-
-  async getStoriesByAuthor(authorId: number): Promise<Story[]> {
-    return await db.select().from(stories).where(eq(stories.authorId, authorId)).orderBy(desc(stories.createdAt));
-  }
-
-  async getStory(id: number): Promise<Story | undefined> {
-    const [story] = await db.select().from(stories).where(eq(stories.id, id));
-    return story;
-  }
-
-  async createStory(storyData: InsertStory & { authorId: number }): Promise<Story> {
-    const [story] = await db
-      .insert(stories)
-      .values(storyData)
-      .returning();
-    return story;
-  }
-
-  async updateStory(id: number, updates: Partial<Story>): Promise<Story | undefined> {
-    const [story] = await db
-      .update(stories)
-      .set({ ...updates, updatedAt: new Date() })
-      .where(eq(stories.id, id))
-      .returning();
-    return story;
-  }
-
-  async deleteStory(id: number): Promise<boolean> {
-    const result = await db.delete(stories).where(eq(stories.id, id));
-    return (result.rowCount || 0) > 0;
-  }
+  return {
+    id: savedUser._id.toString(),
+    username: savedUser.username,
+    email: savedUser.email,
+    firstName: savedUser.firstName,
+    lastName: savedUser.lastName,
+  };
 }
 
-export const storage = new DatabaseStorage();
+// Get user by email
+export async function getUserByEmail(email: string): Promise<IUser | null> {
+  const user = await User.findOne({ email }).exec();
+  if (!user) return null;
+
+  return {
+    id: user._id.toString(),
+    username: user.username,
+    email: user.email,
+    password: user.password,
+    firstName: user.firstName,
+    lastName: user.lastName,
+  };
+}
+
+// Get user by username
+export async function getUserByUsername(username: string): Promise<IUser | null> {
+  const user = await User.findOne({ username }).exec();
+  if (!user) return null;
+
+  return {
+    id: user._id.toString(),
+    username: user.username,
+    email: user.email,
+    password: user.password,
+    firstName: user.firstName,
+    lastName: user.lastName,
+  };
+}
+
+// Verify password for login
+export async function verifyPassword(email: string, password: string): Promise<IUser | null> {
+  const user = await User.findOne({ email }).exec();
+
+  if (!user || !user.password) {
+    return null; // no user or no password stored
+  }
+
+  const isMatch = await bcrypt.compare(password, user.password);
+
+  if (!isMatch) {
+    return null;
+  }
+
+  return {
+    id: user._id.toString(),
+    username: user.username,
+    email: user.email,
+    firstName: user.firstName,
+    lastName: user.lastName,
+  };
+}
+
+// Get user by ID
+export async function getUser(id: string): Promise<IUser | null> {
+  const user = await User.findById(id).exec();
+  if (!user) return null;
+
+  return {
+    id: user._id.toString(),
+    username: user.username,
+    email: user.email,
+    firstName: user.firstName,
+    lastName: user.lastName,
+  };
+}
+
+// Update user
+export async function updateUser(id: string, updates: Partial<IUser>): Promise<IUser | null> {
+  const user = await User.findById(id).exec();
+  if (!user) return null;
+
+  if (updates.username !== undefined) user.username = updates.username;
+  if (updates.email !== undefined) user.email = updates.email;
+  if (updates.firstName !== undefined) user.firstName = updates.firstName;
+  if (updates.lastName !== undefined) user.lastName = updates.lastName;
+
+  if (updates.password) {
+    user.password = await bcrypt.hash(updates.password, 10);
+  }
+
+  const savedUser = await user.save();
+
+  return {
+    id: savedUser._id.toString(),
+    username: savedUser.username,
+    email: savedUser.email,
+    firstName: savedUser.firstName,
+    lastName: savedUser.lastName,
+  };
+}
